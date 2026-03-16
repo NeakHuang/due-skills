@@ -81,7 +81,7 @@ package actor
 
 import (
     "context"
-    "github.com/dobyte/due/core/actor"
+    "github.com/dobyte/due/v2/core/actor"
 )
 
 type PlayerActor struct {
@@ -115,7 +115,7 @@ package handler
 
 import (
     "context"
-    "github.com/dobyte/due/network/ws"
+    "github.com/dobyte/due/network/ws/v2"
 )
 
 func LoginHandler(ctx context.Context, conn *ws.Conn, message []byte) {

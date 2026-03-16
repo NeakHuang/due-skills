@@ -190,7 +190,7 @@ due 支持 Redis 和 Memcache 缓存驱动。
 ```go
 import (
     "github.com/redis/go-redis/v9"
-    "github.com/dobyte/due/v2/cache/redis"
+    "github.com/dobyte/due/cache/redis/v2"
 )
 
 // 创建 Redis 客户端

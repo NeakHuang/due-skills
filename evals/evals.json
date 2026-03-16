@@ -293,6 +293,162 @@
           "check": "json.Marshal("
         }
       ]
+    },
+    {
+      "id": 5,
+      "name": "etcd-registry-gate",
+      "prompt": "使用 due v2.5.2 创建一个 WebSocket Gate 服务，要求使用 Etcd 作为服务注册中心，Redis 作为定位器。请写出完整的 main.go 代码。",
+      "expected_output": "Gate 服务代码，使用 etcd.NewRegistry() 创建 Etcd 注册中心，正确配置 Etcd 地址和 Redis 定位器",
+      "assertions": [
+        {
+          "name": "uses_container_pattern",
+          "description": "使用 due.NewContainer() 创建容器",
+          "type": "code_contains",
+          "check": "due.NewContainer()"
+        },
+        {
+          "name": "uses_gate_component",
+          "description": "使用 gate.NewGate() 创建 Gate 组件",
+          "type": "code_contains",
+          "check": "gate.NewGate("
+        },
+        {
+          "name": "uses_websocket_server",
+          "description": "使用 ws.NewServer() 创建 WebSocket 服务器",
+          "type": "code_contains",
+          "check": "ws.NewServer("
+        },
+        {
+          "name": "configures_etcd_registry",
+          "description": "配置 Etcd 注册中心",
+          "type": "code_contains",
+          "check": "etcd.NewRegistry("
+        },
+        {
+          "name": "configures_redis_locator",
+          "description": "配置 Redis 定位器",
+          "type": "code_contains",
+          "check": "redis.NewLocator("
+        },
+        {
+          "name": "uses_v2_etcd_import",
+          "description": "使用 v2 版本的 etcd 导入",
+          "type": "code_contains",
+          "check": "github.com/dobyte/due/registry/etcd/v2"
+        },
+        {
+          "name": "etcd_address_configured",
+          "description": "配置 Etcd 地址",
+          "type": "code_contains",
+          "check": "etcd.WithAddr("
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "nacos-registry-node",
+      "prompt": "我需要用 due v2.5.2 创建一个 Node 服务，使用 Nacos 作为服务注册中心。请写出完整的 Node 服务代码，包含一个消息处理器。",
+      "expected_output": "Node 服务代码，使用 nacos.NewRegistry() 创建 Nacos 注册中心，使用 Router().AddRouteHandler() 注册消息处理器",
+      "assertions": [
+        {
+          "name": "uses_container_pattern",
+          "description": "使用 due.NewContainer() 创建容器",
+          "type": "code_contains",
+          "check": "due.NewContainer()"
+        },
+        {
+          "name": "uses_node_component",
+          "description": "使用 node.NewNode() 创建 Node 组件",
+          "type": "code_contains",
+          "check": "node.NewNode("
+        },
+        {
+          "name": "configures_nacos_registry",
+          "description": "配置 Nacos 注册中心",
+          "type": "code_contains",
+          "check": "nacos.NewRegistry("
+        },
+        {
+          "name": "registers_route_handler",
+          "description": "使用 Router().AddRouteHandler() 注册路由处理器",
+          "type": "code_contains",
+          "check": "Router().AddRouteHandler("
+        },
+        {
+          "name": "uses_v2_nacos_import",
+          "description": "使用 v2 版本的 nacos 导入",
+          "type": "code_contains",
+          "check": "github.com/dobyte/due/registry/nacos/v2"
+        },
+        {
+          "name": "nacos_address_configured",
+          "description": "配置 Nacos 地址",
+          "type": "code_contains",
+          "check": "nacos.WithAddr("
+        },
+        {
+          "name": "has_handler_function",
+          "description": "包含处理器函数",
+          "type": "code_contains",
+          "check": "func handler(ctx node.Context)"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "nacos-config-center",
+      "prompt": "在 due v2.5.2 中，如何使用 Nacos 配置中心来管理游戏配置？我需要动态加载 game.json 配置文件，包含服务器端口和最大玩家数设置。",
+      "expected_output": "Nacos 配置中心代码，使用 nacos.NewSource() 创建配置源，config.NewConfig() 创建配置，支持配置结构体绑定",
+      "assertions": [
+        {
+          "name": "creates_nacos_source",
+          "description": "创建 Nacos 配置源",
+          "type": "code_contains",
+          "check": "nacos.NewSource("
+        },
+        {
+          "name": "creates_config",
+          "description": "创建配置对象",
+          "type": "code_contains",
+          "check": "config.NewConfig("
+        },
+        {
+          "name": "loads_config",
+          "description": "加载配置",
+          "type": "code_contains",
+          "check": "cfg.Load()"
+        },
+        {
+          "name": "uses_v2_nacos_import",
+          "description": "使用 v2 版本的 nacos 导入",
+          "type": "code_contains",
+          "check": "github.com/dobyte/due/config/nacos/v2"
+        },
+        {
+          "name": "nacos_address_configured",
+          "description": "配置 Nacos 地址",
+          "type": "code_contains",
+          "check": "nacos.WithAddr("
+        },
+        {
+          "name": "has_config_struct",
+          "description": "定义配置结构体",
+          "type": "code_contains",
+          "check": "type Config struct"
+        },
+        {
+          "name": "port_in_config",
+          "description": "配置包含端口设置",
+          "type": "code_contains",
+          "check": "Port"
+        },
+        {
+          "name": "max_players_in_config",
+          "description": "配置包含最大玩家数",
+          "type": "code_contains",
+          "check": "MaxPlayers"
+        }
+      ]
     }
   ]
 }
